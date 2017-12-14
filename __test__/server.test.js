@@ -4,6 +4,7 @@ const faker = require('faker');
 const superagent = require('superagent');
 const Wizard = require('../model/wizard');
 const server = require('../lib/server');
+const logger = require('../lib/logger');
 
 const apiURL = `http://localhost:${process.env.PORT}/api/wizards`;
 
@@ -29,6 +30,7 @@ describe('/api/wizards', () => {
         type: faker.lorem.words(1),
         city: faker.lorem.words(1),
       };
+      console.log(wizardToPost);
       return superagent.post(`${apiURL}`)
         .send(wizardToPost)
         .then(response => {
@@ -39,7 +41,8 @@ describe('/api/wizards', () => {
           expect(response.body.name).toEqual(wizardToPost.name);
           expect(response.body.type).toEqual(wizardToPost.type);
           expect(response.body.city).toEqual(wizardToPost.city);
-        });
+        })
+        .catch(error => logger.log('error', error));
     });
     test('should respond with a 400 code if we send an incomplete wizard', () => {
       let wizardToPost = {
@@ -91,7 +94,8 @@ describe('/api/wizards', () => {
           expect(response.body.name).toEqual(wizardToTest.name);
           expect(response.body.city).toEqual(wizardToTest.type);
           expect(response.body.state).toEqual(wizardToTest.city);
-        });
+        })
+        .catch(error => logger.log('error', error));
     });
     test('should respond with 404 status code if the id is incorrect', () => {
       return superagent.get(`${apiURL}/Bob`)
@@ -201,7 +205,8 @@ describe('/api/wizards', () => {
         .then(Promise.reject)
         .catch(response => {
           expect(response.status).toEqual(409);
-        });
+        })
+        .catch(error => logger.log('error', error));
     });
 
 
