@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const wizardSchema = mongoose.Schema ({
-  name: {
+  name:{
     type:String,
     required:true,
     unique:true,
@@ -13,7 +13,7 @@ const wizardSchema = mongoose.Schema ({
     required:true,
     unique:false,
   },
-  city: {
+  city:{
     type: String,
     required: true,
     unique: false,

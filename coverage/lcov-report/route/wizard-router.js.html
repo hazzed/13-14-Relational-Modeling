@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for route/wizard-router.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">route</a> wizard-router.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.18% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>41/44</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>7/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>12/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.18% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>41/44</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+const {Router} = require('express');
+const jsonParser = require('body-parser').json();
+&nbsp;
+const Wizard = require('../model/wizard');
+const logger = require('../lib/logger');
+const httpErrors = require('http-errors');
+&nbsp;
+const wizardRouter = module.exports = new Router();
+&nbsp;
+wizardRouter.post('/api/wizards', jsonParser, (request,response, next) =&gt; {
+  logger.log('info', 'POST - processing a request');
+&nbsp;
+  if(!request.body.name || !request.body.city) {
+    return next(httpErrors(400, 'name and city are required'));
+  }
+&nbsp;
+  return new Wizard(request.body).save()
+    .then(wizard =&gt; response.json(wizard))
+    .catch(next);
+});
+&nbsp;
+wizardRouter.get('/api/wizards/:id', (request,response, next) =&gt; {
+  logger.log('info', 'GET by id- processing a request');
+&nbsp;
+  return Wizard.findById(request.params.id)
+    .then(wizard =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(!wizard){
+<span class="cstat-no" title="statement not covered" >        throw httpErrors(404, 'wizard not found');</span>
+      }
+      logger.log('info', 'GET by id- Returning a 200 status code');
+      return response.json(wizard);
+    }).catch(next);
+});
+wizardRouter.get('/api/wizards', (request, response, next) =&gt; {
+  logger.log('info', 'GET - processing a request');
+  return Wizard.find({})
+    .then(wizards =&gt;{
+      return response.json(wizards);
+    });
+});
+wizardRouter.delete('/api/wizards/:id', (request, response, next) =&gt; {
+  logger.log('info', 'DELETE - processing a request');
+&nbsp;
+  return Wizard.findByIdAndRemove(request.params.id)
+    .then(wizard =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(!wizard){
+<span class="cstat-no" title="statement not covered" >        throw httpErrors(404, 'wizard not found');</span>
+      }
+      logger.log('info', 'DELETE - Returning a 204 status code');
+      return response.sendStatus(204);
+    }).catch(next);
+});
+&nbsp;
+wizardRouter.delete('/api/wizards', (request, response, next) =&gt; {
+  logger.log('info', 'DELETE - request without an id.  Returning 400');
+  return response.sendStatus(400);
+});
+&nbsp;
+wizardRouter.put('/api/wizards/:id', jsonParser ,(request,response,next) =&gt; {
+  logger.log('info', 'PUT - processing a request');
+  let options = {runValidators: true, new : true};
+&nbsp;
+  return Wizard.findByIdAndUpdate(request.params.id, request.body, options)
+    .then(wizard =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(!wizard){
+<span class="cstat-no" title="statement not covered" >        throw httpErrors(404, 'wizard not found');</span>
+      }
+      logger.log('info', 'GET - Returning a 200 status code');
+      return response.json(wizard);
+    }).catch(next);
+});
+&nbsp;
+wizardRouter.put('/api/wizards', (request, response, next) =&gt; {
+  logger.log('info', 'PUT - request without an id.  Returning 400');
+  return response.sendStatus(400);
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 13 2017 19:37:42 GMT-0800 (PST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
