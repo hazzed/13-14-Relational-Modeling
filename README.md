@@ -56,5 +56,5 @@ body-parser, dotenv, express, http-errors, mongoose, winston
 ## Development Libraries
 eslint, faker, jest, superagent
 
-##Author
+## Author
 Dalton Carr
