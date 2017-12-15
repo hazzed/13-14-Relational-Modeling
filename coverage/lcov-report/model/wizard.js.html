@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">61.9% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>7/21</span>
+        <span class='fraction'>13/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">25% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>1/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/8</span>
+        <span class='fraction'>4/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">61.9% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>7/21</span>
+        <span class='fraction'>13/21</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -123,7 +123,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,15 +137,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,11 +180,11 @@ const wizardSchema = mongoose.Schema ({
   content : {
     type : String,
     required : true,
-    minlength : 10,
+    minlength : 5,
   },
   timestamp: {
     type:Date,
-    default: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >new Date(),</span>
+    default: () =&gt; new Date(),
   },
   category: {
     type : mongoose.Schema.Types.ObjectId,
@@ -196,17 +196,17 @@ const wizardSchema = mongoose.Schema ({
 //-----------------------------------------------------
 // SETTING UP RELATIONSHIP MANAGEMENT
 //-----------------------------------------------------
-wizardSchema.pre('save',<span class="fstat-no" title="function not covered" >fu</span>nction(done){
+wizardSchema.pre('save',function(done){
   //making sure that the category exists before saving a note
-<span class="cstat-no" title="statement not covered" >  return Category.findById(this.category)</span>
-    .then(<span class="fstat-no" title="function not covered" >ca</span>tegoryFound =&gt; {
-<span class="cstat-no" title="statement not covered" >      if(!categoryFound)</span>
+  return Category.findById(this.category)
+    .then(categoryFound =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(!categoryFound)
 <span class="cstat-no" title="statement not covered" >        throw httpErrors(404,'category not found');</span>
       
-<span class="cstat-no" title="statement not covered" >      categoryFound.wizards.push(this._id);</span>
-<span class="cstat-no" title="statement not covered" >      return categoryFound.save();</span>
+      categoryFound.wizards.push(this._id);
+      return categoryFound.save();
     })
-    .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >done())</span>
+    .then(() =&gt; done())
     .catch(done);// this will trigger an error
 });
 &nbsp;
@@ -232,7 +232,7 @@ module.exports = mongoose.model('wizard',wizardSchema);</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 14 2017 19:08:58 GMT-0800 (PST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 14 2017 19:20:06 GMT-0800 (PST)
 </div>
 </div>
 <script src="../prettify.js"></script>

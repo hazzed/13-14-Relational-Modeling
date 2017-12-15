@@ -13,7 +13,7 @@ const wizardSchema = mongoose.Schema ({
   content : {
     type : String,
     required : true,
-    minlength : 10,
+    minlength : 5,
   },
   timestamp: {
     type:Date,

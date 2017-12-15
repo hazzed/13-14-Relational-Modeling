@@ -29,10 +29,9 @@ describe('/api/wizards', () => {
         .then(mock => {
           tempCategoryMock = mock;
 
-
           let wizardToPost = {
             name: faker.lorem.words(5),
-            type: faker.lorem.words(5),
+            content: faker.lorem.words(5),
             category : mock._id,
           };
 
