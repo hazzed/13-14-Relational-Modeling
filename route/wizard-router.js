@@ -21,25 +21,18 @@ wizardRouter.post('/api/wizards', jsonParser, (request,response, next) => {
     .catch(next);
 });
 
-wizardRouter.get('/api/wizards/:id', (request,response, next) => {
-  logger.log('info', 'GET by id- processing a request');
-
+wizardRouter.get('/api/notes/:id',(request,response,next) => {
   return Wizard.findById(request.params.id)
-    .then(wizard => {
+    .populate('category')// vinicio - use this with care
+    .then(wizard => {      // wit great power comes great responsibility
       if(!wizard){
-        throw httpErrors(404, 'wizard not found');
+        throw httpErrors(404,'note not found');
       }
-      logger.log('info', 'GET by id- Returning a 200 status code');
+      logger.log('info', 'GET - Returning a 200 status code');
       return response.json(wizard);
     }).catch(next);
 });
-wizardRouter.get('/api/wizards', (request, response, next) => {
-  logger.log('info', 'GET - processing a request');
-  return Wizard.find({})
-    .then(wizards =>{
-      return response.json(wizards);
-    });
-});
+
 wizardRouter.delete('/api/wizards/:id', (request, response, next) => {
   logger.log('info', 'DELETE - processing a request');
 
