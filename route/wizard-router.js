@@ -18,7 +18,7 @@ wizardRouter.post('/api/wizards', jsonParser, (request,response, next) => {
 
   return new Wizard(request.body).save()
     .then(wizard => response.json(wizard))
-    .catch(error => next(error));
+    .catch(next);
 });
 
 wizardRouter.get('/api/notes/:id',(request,response,next) => {
@@ -34,11 +34,38 @@ wizardRouter.get('/api/notes/:id',(request,response,next) => {
 });
 
 wizardRouter.get('/api/wizards', (request, response, next) => {
-  logger.log('info', 'GET - processing a request');
+  const PAGE_SIZE = 10;
+  let {page = '0'} = request.query;
+  page = Number(page);
+  
+  if(isNaN(page)) 
+    page = 0;
+  
+  page = page < 0 ? 0 : page;
+  
+  let allWizards = null;
+  
   return Wizard.find({})
-    .then(wizards =>{
-      return response.json(wizards);
-    }).catch(next);
+    .skip(page * PAGE_SIZE)
+    .limit(PAGE_SIZE)
+    .then(wizards => {
+      allWizards = wizards;
+      return Wizard.find({}).count();
+    })
+    .then(wizardCount => {
+      let responseData = {
+        count : wizardCount,
+        data: allWizards,
+      };
+      let lastPage = Math.floor(wizardCount / PAGE_SIZE);
+      response.links({
+        next: `http://localhost:${process.env.PORT}/api/wizards?page=${page === lastPage ? lastPage : page + 1}`,
+        prev: `http://localhost:${process.env.PORT}/api/wizards?page=${page < 1 ? 0 : page - 1}`,
+        last: `http://localhost:${process.env.PORT}/api/wizards?page=${lastPage}`,
+      });
+  
+      response.json(responseData);
+    });
 });
 
 
@@ -55,7 +82,7 @@ wizardRouter.delete('/api/wizards/:id', (request, response, next) => {
     }).catch(next);
 });
 
-wizardRouter.delete('/api/wizards', (request, response, next) => {
+wizardRouter.delete('/api/wizards', (request, response) => {
   logger.log('info', 'DELETE - request without an id.  Returning 400');
   return response.sendStatus(400);
 });
@@ -72,9 +99,4 @@ wizardRouter.put('/api/wizards/:id', jsonParser ,(request,response,next) => {
       logger.log('info', 'GET - Returning a 200 status code');
       return response.json(wizard);
     }).catch(next);
-});
-
-wizardRouter.put('/api/wizards', (request, response, next) => {
-  logger.log('info', 'PUT - request without an id.  Returning 400');
-  return response.sendStatus(400);
 });

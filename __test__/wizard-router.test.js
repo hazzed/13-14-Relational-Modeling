@@ -5,7 +5,6 @@ require('./lib/setup');
 
 const faker = require('faker');
 const superagent = require('superagent');
-// const Wizard = require('../model/wizard');
 const server = require('../lib/server');
 
 const logger = require('../lib/logger');
@@ -50,8 +49,8 @@ describe('/api/wizards', () => {
 
               expect(response.body.name).toEqual(wizardToPost.name);
               expect(response.body.content).toEqual(wizardToPost.content);
-            });
-          // .catch(error => logger.log('error', error));
+            })
+            .catch(error => logger.log('error', error));
         });
 
     });
@@ -59,9 +58,9 @@ describe('/api/wizards', () => {
     test('should respond with a 404 if the category id is not present', () => {
       return superagent.post(`${apiURL}`)
         .send({
-          name : 'dalton',
-          content : 'lol lol lol lol',
-          category : 'BAD_ID',
+          name : faker.lorem.words(4),
+          content: faker.lorem.words(100),
+          category: 'BAD_ID',
         })
         .then(Promise.reject)
         .catch(response => {
@@ -78,22 +77,6 @@ describe('/api/wizards', () => {
         .then(Promise.reject)
         .catch(response => {
           expect(response.status).toEqual(400);
-        });
-    });
-
-    test('should respond with 409 status code if name is a duplicate', () => {
-      let wizardToPost = {
-        name: faker.lorem.words(1),
-      };
-      return superagent.post(`${apiURL}`)
-        .send(wizardToPost)
-        .then( () => {
-          return superagent.post(`${apiURL}`)
-            .send(wizardToPost);
-        })
-        .then(Promise.reject)
-        .catch(response => {
-          expect(response.status).toEqual(409);
         });
     });
 
@@ -132,33 +115,32 @@ describe('/api/wizards', () => {
     });
 
   });
-  describe('GET /api/wizards', () => {
-    test('Should return array of objects of all wizards and status 200', () => {
-
-      return wizardMock.create()
-        .then( () => {
+  describe('GET /api/wizards/', () => {
+    test('should return 10 wizards (where 10 is the size of the page by default)', () => {
+      return wizardMock.createMany(100)
+        .then(() => {
           return superagent.get(`${apiURL}`);
         })
         .then(response => {
           expect(response.status).toEqual(200);
-          expect(response.body.length).toEqual(1);
+          expect(response.body.count).toEqual(100);
+          expect(response.body.data.length).toEqual(10);        
         });
     });
   });
   describe('DELETE /api/wizards/:id', () => {
-    test('should respond with 204 status code if there is no error', () => {
-
+    test('DELETE should respond with 204 status code with no content in the body if successfully deleted', () => {
       return wizardMock.create()
         .then(mock => {
-          return superagent.delete(`${apiURL}/${mock.note._id}`);
-        })
-        .then(response => {
-          expect(response.status).toEqual(204);
+          return superagent.delete(`${apiURL}/${mock.wizard._id}`)
+            .then(response => {
+              expect(response.status).toEqual(204);
+            });
         });
     });
 
     test('should respond with 400 if no id is sent', () => {
-      return superagent.delete(`${apiURL}`)
+      return superagent.del(`${apiURL}`)
         .then(Promise.reject)
         .catch(response => {
           expect(response.status).toEqual(400);
@@ -176,19 +158,18 @@ describe('/api/wizards', () => {
 
   describe('PUT /api/wizards', () => {
     test('should update wizard and respond with 200 if there are no errors', () => {
+      
       let wizardToUpdate = null;
-
+      
       return wizardMock.create()
         .then(mock => {
           wizardToUpdate = mock.wizard;
-          return superagent.put(`${apiURL}/${mock.note_id}`)
-            .send({name: 'Harry Potter'});
-        })
-        .then(response => {
+          return superagent.put(`${apiURL}/${mock.wizard._id}`)
+            .send({name: 'Voldemort'});
+        }).then(response => { 
           expect(response.status).toEqual(200);
-          expect(response.body.name).toEqual('Harry Potter');
-          expect(response.body.content).toEqual(wizardToUpdate.content);
-          expect(response.body._id).toEqual(wizardToUpdate._id.toString());
+          expect(response.body.name).toEqual('Voldemort');
+          expect(response.body._id).toEqual(wizardToUpdate._id.toString()); 
         });
     });
 
@@ -202,7 +183,7 @@ describe('/api/wizards', () => {
     });
 
     test('should respond with 400 if no id is sent', () => {
-      return superagent.put(`${apiURL}`)
+      return superagent.del(`${apiURL}`)
         .then(Promise.reject)
         .catch(response => {
           expect(response.status).toEqual(400);
@@ -212,13 +193,9 @@ describe('/api/wizards', () => {
     test('should respond with 409 status code if name is a duplicate', () => {
       let wizardToPostOne = {
         name: 'Voldemort',
-        city: faker.lorem.words(1),
-        state: faker.lorem.words(1),
       };
       let wizardToPostTwo = {
         name: faker.lorem.words(1),
-        city: faker.lorem.words(1),
-        state: faker.lorem.words(1),
       };
       return superagent.post(`${apiURL}`)
         .send(wizardToPostOne)

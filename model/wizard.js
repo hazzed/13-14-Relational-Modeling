@@ -13,7 +13,6 @@ const wizardSchema = mongoose.Schema ({
   content : {
     type : String,
     required : true,
-    minlength : 5,
   },
   timestamp: {
     type:Date,
@@ -22,7 +21,7 @@ const wizardSchema = mongoose.Schema ({
   category: {
     type : mongoose.Schema.Types.ObjectId,
     required : true,
-    ref : 'categorie',
+    ref : 'category',
   },
 });
 
@@ -30,7 +29,7 @@ const wizardSchema = mongoose.Schema ({
 // SETTING UP RELATIONSHIP MANAGEMENT
 //-----------------------------------------------------
 wizardSchema.pre('save',function(done){
-  //making sure that the category exists before saving a note
+  //making sure that the category exists before saving a wizard
   return Category.findById(this.category)
     .then(categoryFound => {
       if(!categoryFound)
@@ -40,7 +39,7 @@ wizardSchema.pre('save',function(done){
       return categoryFound.save();
     })
     .then(() => done())
-    .catch(done);// this will trigger an error
+    .catch(done);
 });
 
 wizardSchema.post('remove',(document,done) => {
@@ -49,7 +48,7 @@ wizardSchema.post('remove',(document,done) => {
       if(!categoryFound)
         throw httpErrors(404,'category not found');
       
-      categoryFound.wizards = categoryFound.notes.filter(wizard => {
+      categoryFound.wizards = categoryFound.wizards.filter(wizard => {
         return wizard._id.toString() !== document._id.toString();
       });
       return categoryFound.save();
