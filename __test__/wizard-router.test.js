@@ -84,8 +84,6 @@ describe('/api/wizards', () => {
     test('should respond with 409 status code if name is a duplicate', () => {
       let wizardToPost = {
         name: faker.lorem.words(1),
-        type: faker.lorem.words(1),
-        city: faker.lorem.words(1),
       };
       return superagent.post(`${apiURL}`)
         .send(wizardToPost)
