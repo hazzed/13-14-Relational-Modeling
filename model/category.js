@@ -11,7 +11,7 @@ const categorySchema = mongoose.Schema({
   timeStamp : {type : Date,
     default : () => new Date() },
   wizards : [{type : mongoose.Schema.Types.ObjectId,
-    ref : 'wizards'}],
+    ref : 'wizard'}],
 },{ 
   usePushEach : true, 
 });

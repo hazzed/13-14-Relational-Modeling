@@ -17,7 +17,7 @@ describe('/api/categorys', () => {
     test('should return a 200 and a category if there are no errors', () => {
       return superagent.post(apiURL)
         .send({
-          name: 'Wizard Town', 
+          title: 'Wizard Town', 
           keywords: ['snow', 'ice'],
         })
         .then(response => {
@@ -70,7 +70,7 @@ describe('/api/categorys', () => {
     });
 
     test('GET should respond with 404 status code if the id is incorrect', () => {
-      return superagent.get(`${apiURL}/mooshy`)
+      return superagent.get(`${apiURL}bob`)
         .then(Promise.reject)
         .catch(response => {
           expect(response.status).toEqual(404);

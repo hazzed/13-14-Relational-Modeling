@@ -7,7 +7,7 @@ const Category = require('../model/category');
 
 const categoryRouter = module.exports = new Router();
 
-categoryRouter.post('/api/categories',jsonParser,(request,response,next) => {
+categoryRouter.post('/api/categorys',jsonParser,(request,response,next) => {
   if(!request.body.title)
     return next(httpErrors(400,'category model requires a title'));
 
@@ -16,7 +16,7 @@ categoryRouter.post('/api/categories',jsonParser,(request,response,next) => {
     .catch(next);
 });
 
-categoryRouter.put('/api/categories/:id',jsonParser,(request,response,next) => {
+categoryRouter.put('/api/categorys/:id',jsonParser,(request,response,next) => {
   let options = {new : true, runValidators : true};
 
   return Category.findByIdAndUpdate(request.params.id,request.body,options)
@@ -28,7 +28,7 @@ categoryRouter.put('/api/categories/:id',jsonParser,(request,response,next) => {
     .catch(next);
 });
 
-categoryRouter.get('/api/categories/:id',(request,response,next) => {
+categoryRouter.get('/api/categorys/:id',(request,response,next) => {
   return Category.findById(request.params.id)
     .then(category => {
       if(!category)
@@ -39,7 +39,7 @@ categoryRouter.get('/api/categories/:id',(request,response,next) => {
 });
 
 
-categoryRouter.delete('/api/categories/:id',(request,response,next) => {
+categoryRouter.delete('/api/categorys/:id',(request,response,next) => {
   return Category.findByIdAndRemove(request.params.id)
     .then(category => {
       if(!category)
