@@ -23,7 +23,7 @@ describe('/api/wizards', () => {
 
 
   describe('POST /api/wizards', () => {
-    test.only('should respond with a wizard and 200 status code if there is no error', () => {
+    test('should respond with a wizard and 200 status code if there is no error', () => {
       let tempCategoryMock = null;
       return categoryMock.create()
         .then(mock => {
@@ -55,9 +55,23 @@ describe('/api/wizards', () => {
         });
 
     });
+
+    test('should respond with a 404 if the category id is not present', () => {
+      return superagent.post(`${apiURL}`)
+        .send({
+          name : 'dalton',
+          content : 'lol lol lol lol',
+          category : 'BAD_ID',
+        })
+        .then(Promise.reject)
+        .catch(response => {
+          expect(response.status).toEqual(404);
+        });
+    });
+
     test('should respond with a 400 code if we send an incomplete wizard', () => {
       let wizardToPost = {
-        name: faker.lorem.words(1),
+        content: faker.lorem.words(1),
       };
       return superagent.post(`${apiURL}`)
         .send(wizardToPost)
@@ -89,22 +103,26 @@ describe('/api/wizards', () => {
 
   describe('GET /api/wizards/:id', () => {
     test('should respond with 200 status code if there is no error', () => {
-      let wizardToTest = null;
+      let tempMock = null;
 
-      return wizardMockCreate()
-        .then(wizard => {
-          wizardToTest = wizard;
-          return superagent.get(`${apiURL}/${wizard._id}`);
+      return wizardMock.create()
+        .then(mock => {
+          tempMock = mock;
+          return superagent.get(`${apiURL}/${mock.wizard_id}`);
         })
         .then(response => {
           expect(response.status).toEqual(200);
 
-          expect(response.body._id).toEqual(wizardToTest._id.toString());
+          expect(response.body._id).toEqual(tempMock.note._id.toString());
           expect(response.body.timestamp).toBeTruthy();
 
-          expect(response.body.name).toEqual(wizardToTest.name);
-          expect(response.body.city).toEqual(wizardToTest.type);
-          expect(response.body.state).toEqual(wizardToTest.city);
+          expect(response.body.name).toEqual(tempMock.note.name);
+          expect(response.body.content).toEqual(tempMock.note.content);
+
+          expect(response.body.category._id).toEqual(tempMock.category._id.toString());
+          expect(response.body.category.name).toEqual(tempMock.category.name);
+          expect(JSON.stringify(response.body.category.keywords))
+            .toEqual(JSON.stringify(tempMock.category.keywords));
         })
         .catch(error => logger.log('error', error));
     });
@@ -119,7 +137,7 @@ describe('/api/wizards', () => {
   describe('GET /api/wizards', () => {
     test('Should return array of objects of all wizards and status 200', () => {
 
-      return wizardMockCreate()
+      return wizardMock.create()
         .then( () => {
           return superagent.get(`${apiURL}`);
         })
@@ -132,14 +150,15 @@ describe('/api/wizards', () => {
   describe('DELETE /api/wizards/:id', () => {
     test('should respond with 204 status code if there is no error', () => {
 
-      return wizardMockCreate()
-        .then(wizard => {
-          return superagent.delete(`${apiURL}/${wizard._id}`);
+      return wizardMock.create()
+        .then(mock => {
+          return superagent.delete(`${apiURL}/${mock.note._id}`);
         })
         .then(response => {
           expect(response.status).toEqual(204);
         });
     });
+
     test('should respond with 400 if no id is sent', () => {
       return superagent.delete(`${apiURL}`)
         .then(Promise.reject)
@@ -161,16 +180,16 @@ describe('/api/wizards', () => {
     test('should update wizard and respond with 200 if there are no errors', () => {
       let wizardToUpdate = null;
 
-      return wizardMockCreate()
-        .then(wizard => {
-          wizardToUpdate = wizard;
-          return superagent.put(`${apiURL}/${wizard._id}`)
+      return wizardMock.create()
+        .then(mock => {
+          wizardToUpdate = mock.wizard;
+          return superagent.put(`${apiURL}/${mock.note_id}`)
             .send({name: 'Harry Potter'});
         })
         .then(response => {
           expect(response.status).toEqual(200);
           expect(response.body.name).toEqual('Harry Potter');
-          expect(response.body.city).toEqual(wizardToUpdate.city);
+          expect(response.body.content).toEqual(wizardToUpdate.content);
           expect(response.body._id).toEqual(wizardToUpdate._id.toString());
         });
     });
