@@ -11,10 +11,10 @@ const categorySchema = mongoose.Schema({
   timeStamp : {type : Date,
     default : () => new Date() },
   wizards : [{type : mongoose.Schema.Types.ObjectId,
-    ref : 'catergorie'}],
+    ref : 'wizards'}],
 },{ 
   usePushEach : true, 
 });
 
 
-module.exports = mongoose.model('categorie',categorySchema);
+module.exports = mongoose.model('category',categorySchema);
