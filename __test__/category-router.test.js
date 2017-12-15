@@ -42,7 +42,7 @@ describe('/api/categorys', () => {
         .then(category => {
           return superagent.post(apiURL)
             .send({
-              name: category.name,
+              title: category.title,
               keywords: [],
             });
         })
@@ -86,10 +86,10 @@ describe('/api/categorys', () => {
         .then(category => {
           categoryToUpdate = category;
           return superagent.put(`${apiURL}/${category._id}`)
-            .send({name: 'Town'});
+            .send({title: 'Town'});
         }).then(response => { 
           expect(response.status).toEqual(200);
-          expect(response.body.name).toEqual('Town');
+          expect(response.body.title).toEqual('Town');
           expect(response.body._id).toEqual(categoryToUpdate._id.toString()); 
         });
     });
@@ -112,11 +112,11 @@ describe('/api/categorys', () => {
 
     test('should respond with a 409 status code if a key is unique', () => {
       let categoryToPostOne = {
-        name : 'WizardTown',
+        title : 'WizardTown',
       };
 
       let categoryToPostTwo = {
-        name : 'WizardTown2',
+        title : 'WizardTown2',
       };
 
       return superagent.post(`${apiURL}`)
@@ -127,7 +127,7 @@ describe('/api/categorys', () => {
         })
         .then(response => {
           return superagent.put(`${apiURL}/${response.body._id}`)
-            .send({name: 'WizardTown'});
+            .send({title: 'WizardTown'});
         })
         .then(Promise.reject)
         .catch(response => {

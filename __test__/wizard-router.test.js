@@ -55,19 +55,6 @@ describe('/api/wizards', () => {
 
     });
 
-    test('should respond with a 404 if the category id is not present', () => {
-      return superagent.post(`${apiURL}`)
-        .send({
-          name : faker.lorem.words(4),
-          content: faker.lorem.words(100),
-          category: 'BAD_ID',
-        })
-        .then(Promise.reject)
-        .catch(response => {
-          expect(response.status).toEqual(404);
-        });
-    });
-
     test('should respond with a 400 code if we send an incomplete wizard', () => {
       let wizardToPost = {
         content: faker.lorem.words(1),
