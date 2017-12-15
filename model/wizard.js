@@ -8,15 +8,10 @@ const wizardSchema = mongoose.Schema ({
     required:true,
     unique:true,
   },
-  type:{
-    type:String,
-    required:true,
-    unique:false,
-  },
-  city:{
-    type: String,
-    required: true,
-    unique: false,
+  content : {
+    type : String,
+    required : true,
+    minlength : 10,
   },
   timestamp: {
     type:Date,

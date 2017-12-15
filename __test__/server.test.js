@@ -2,9 +2,12 @@
 
 const faker = require('faker');
 const superagent = require('superagent');
-const Wizard = require('../model/wizard');
+// const Wizard = require('../model/wizard');
 const server = require('../lib/server');
 const logger = require('../lib/logger');
+
+const wizardMock = require('./lib/wizard-mock');
+const categoryMock = require('./lib/category-mock');
 
 const apiURL = `http://localhost:${process.env.PORT}/api/wizards`;
 
