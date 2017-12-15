@@ -20,7 +20,7 @@ const wizardMockCreate = () => {
 describe('/api/wizards', () => {
   beforeAll(server.start);
   afterAll(server.stop);
-  beforeEach(() => Wizard.remove({}));
+  afterEach(() => Wizard.remove({}));
 
 
   describe('POST /api/wizards', () => {
