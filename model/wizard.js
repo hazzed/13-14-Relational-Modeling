@@ -18,6 +18,15 @@ const wizardSchema = mongoose.Schema ({
     required: true,
     unique: false,
   },
+  timestamp: {
+    type:Date,
+    default: () => new Date(),
+  },
+  category: {
+    type : mongoose.Schema.Types.ObjectId,
+    required : true,
+    ref : 'magic',
+  }
 });
 
 module.exports = mongoose.model('wizard',wizardSchema);
