@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/3</span>
+        <span class='fraction'>7/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>0/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>0/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/3</span>
+        <span class='fraction'>7/21</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -65,8 +65,49 @@
 20
 21
 22
-23</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -82,7 +123,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -90,6 +168,8 @@
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 const mongoose = require('mongoose');
+const Category = require('./category');
+const httpErrors = require('http-errors');
 &nbsp;
 const wizardSchema = mongoose.Schema ({
   name:{
@@ -97,17 +177,54 @@ const wizardSchema = mongoose.Schema ({
     required:true,
     unique:true,
   },
-  type:{
-    type:String,
-    required:true,
-    unique:false,
+  content : {
+    type : String,
+    required : true,
+    minlength : 10,
   },
-  city:{
-    type: String,
-    required: true,
-    unique: false,
+  timestamp: {
+    type:Date,
+    default: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >new Date(),</span>
+  },
+  category: {
+    type : mongoose.Schema.Types.ObjectId,
+    required : true,
+    ref : 'categorie',
   },
 });
+&nbsp;
+//-----------------------------------------------------
+// SETTING UP RELATIONSHIP MANAGEMENT
+//-----------------------------------------------------
+wizardSchema.pre('save',<span class="fstat-no" title="function not covered" >fu</span>nction(done){
+  //making sure that the category exists before saving a note
+<span class="cstat-no" title="statement not covered" >  return Category.findById(this.category)</span>
+    .then(<span class="fstat-no" title="function not covered" >ca</span>tegoryFound =&gt; {
+<span class="cstat-no" title="statement not covered" >      if(!categoryFound)</span>
+<span class="cstat-no" title="statement not covered" >        throw httpErrors(404,'category not found');</span>
+      
+<span class="cstat-no" title="statement not covered" >      categoryFound.wizards.push(this._id);</span>
+<span class="cstat-no" title="statement not covered" >      return categoryFound.save();</span>
+    })
+    .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >done())</span>
+    .catch(done);// this will trigger an error
+});
+&nbsp;
+wizardSchema.post('remove',<span class="fstat-no" title="function not covered" >(d</span>ocument,done) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return Category.findById(document.category)</span>
+    .then(<span class="fstat-no" title="function not covered" >ca</span>tegoryFound =&gt; {
+<span class="cstat-no" title="statement not covered" >      if(!categoryFound)</span>
+<span class="cstat-no" title="statement not covered" >        throw httpErrors(404,'category not found');</span>
+      
+<span class="cstat-no" title="statement not covered" >      categoryFound.wizards = categoryFound.notes.filter(<span class="fstat-no" title="function not covered" >wi</span>zard =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return wizard._id.toString() !== document._id.toString();</span>
+      });
+<span class="cstat-no" title="statement not covered" >      return categoryFound.save();</span>
+    })
+    .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >done())</span>
+    .catch(done);
+});
+//-----------------------------------------------------
 &nbsp;
 module.exports = mongoose.model('wizard',wizardSchema);</pre></td></tr>
 </table></pre>
@@ -115,7 +232,7 @@ module.exports = mongoose.model('wizard',wizardSchema);</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 13 2017 21:32:12 GMT-0800 (PST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 14 2017 19:08:58 GMT-0800 (PST)
 </div>
 </div>
 <script src="../prettify.js"></script>

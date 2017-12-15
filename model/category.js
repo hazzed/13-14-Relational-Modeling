@@ -17,4 +17,4 @@ const categorySchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('magic',categorySchema);
+module.exports = mongoose.model('categorie',categorySchema);

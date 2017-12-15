@@ -12,13 +12,13 @@ const wizardRouter = module.exports = new Router();
 wizardRouter.post('/api/wizards', jsonParser, (request,response, next) => {
   logger.log('info', 'POST - processing a request');
 
-  if(!request.body.name || !request.body.city) {
-    return next(httpErrors(400, 'name and city are required'));
+  if(!request.body.name || !request.body.content) {
+    return next(httpErrors(400, 'name and content are required'));
   }
 
   return new Wizard(request.body).save()
     .then(wizard => response.json(wizard))
-    .catch(next);
+    .catch(error => next(error));
 });
 
 wizardRouter.get('/api/notes/:id',(request,response,next) => {
@@ -32,6 +32,15 @@ wizardRouter.get('/api/notes/:id',(request,response,next) => {
       return response.json(wizard);
     }).catch(next);
 });
+
+wizardRouter.get('/api/wizards', (request, response, next) => {
+  logger.log('info', 'GET - processing a request');
+  return Wizard.find({})
+    .then(wizards =>{
+      return response.json(wizards);
+    }).catch(next);
+});
+
 
 wizardRouter.delete('/api/wizards/:id', (request, response, next) => {
   logger.log('info', 'DELETE - processing a request');

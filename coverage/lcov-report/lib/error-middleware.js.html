@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85% </span>
+        <span class="strong">10% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>17/20</span>
+        <span class='fraction'>2/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>7/10</span>
+        <span class='fraction'>0/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>0/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85% </span>
+        <span class="strong">10% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>17/20</span>
+        <span class='fraction'>2/20</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -82,29 +82,29 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -115,30 +115,30 @@
 &nbsp;
 const logger = require('./logger');
 &nbsp;
-module.exports = (error, request, response, next) =&gt; {
-  logger.log('info', '__ERROR_MIDDLEWARE__');
-  logger.log('info', error);
+module.exports = <span class="fstat-no" title="function not covered" >(e</span>rror, request, response, next) =&gt; {
+<span class="cstat-no" title="statement not covered" >  logger.log('info', '__ERROR_MIDDLEWARE__');</span>
+<span class="cstat-no" title="statement not covered" >  logger.log('info', error);</span>
 &nbsp;
-  if(error.status){
-    logger.log('info', `Responding with a ${error.status} status and message: ${error.message}`);
-    return response.sendStatus(error.status);
+<span class="cstat-no" title="statement not covered" >  if(error.status){</span>
+<span class="cstat-no" title="statement not covered" >    logger.log('info', `Responding with a ${error.status} status and message: ${error.message}`);</span>
+<span class="cstat-no" title="statement not covered" >    return response.sendStatus(error.status);</span>
   }
 &nbsp;
-  let message = error.message.toLowerCase();
+  let message = <span class="cstat-no" title="statement not covered" >error.message.toLowerCase();</span>
 &nbsp;
-  if(message.includes('validation failed')){
-    logger.log('info', 'Responding with a 400 status code');
-    return response.sendStatus(400);
+<span class="cstat-no" title="statement not covered" >  if(message.includes('validation failed')){</span>
+<span class="cstat-no" title="statement not covered" >    logger.log('info', 'Responding with a 400 status code');</span>
+<span class="cstat-no" title="statement not covered" >    return response.sendStatus(400);</span>
   }
 &nbsp;
-  if(message.includes('duplicate key')){
-    logger.log('info', 'Responding with a 409 status code');
-    return response.sendStatus(409);
+<span class="cstat-no" title="statement not covered" >  if(message.includes('duplicate key')){</span>
+<span class="cstat-no" title="statement not covered" >    logger.log('info', 'Responding with a 409 status code');</span>
+<span class="cstat-no" title="statement not covered" >    return response.sendStatus(409);</span>
   }
 &nbsp;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if(message.includes('objectid failed')){
-    logger.log('info', 'Responding with a 404 status code');
-    return response.sendStatus(404);
+<span class="cstat-no" title="statement not covered" >  if(message.includes('objectid failed')){</span>
+<span class="cstat-no" title="statement not covered" >    logger.log('info', 'Responding with a 404 status code');</span>
+<span class="cstat-no" title="statement not covered" >    return response.sendStatus(404);</span>
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if(message.includes('unauthorized')){</span>
@@ -151,7 +151,7 @@ module.exports = (error, request, response, next) =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 13 2017 21:32:12 GMT-0800 (PST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 14 2017 19:08:58 GMT-0800 (PST)
 </div>
 </div>
 <script src="../prettify.js"></script>

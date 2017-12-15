@@ -22,7 +22,7 @@ const wizardSchema = mongoose.Schema ({
   category: {
     type : mongoose.Schema.Types.ObjectId,
     required : true,
-    ref : 'magic',
+    ref : 'categorie',
   },
 });
 
